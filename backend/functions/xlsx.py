@@ -393,7 +393,7 @@ class WriteExcel:
         family_name = self.output.name.family_name
         first_name = self.output.name.first_name
         full_name = f"{family_name} {first_name}"
-        file_path_to_save = f"worksheets/{full_name}様.xlsx"
+        file_path_to_save = f"worksheets/{full_name}様 履歴書.xlsx"
         self.wb.save(file_path_to_save)
 
     def export_to_xlsx(self):

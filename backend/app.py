@@ -3,9 +3,9 @@ from functions.xlsx import WriteExcel
 from functions.prompts import user_message
 
 format_data = chat_client.chat_completion(user_message)
-print("==========================================")
-print(format_data)
-print("==========================================")
+# print("==========================================")
+# print(format_data)
+# print("==========================================")
 ws = WriteExcel(format_data)
 ws.export_to_xlsx()
 
