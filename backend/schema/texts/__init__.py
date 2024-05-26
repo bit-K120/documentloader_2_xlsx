@@ -3,10 +3,12 @@ from .base import (
     BaseAddress, 
     BaseSchoolInfo,  
     BaseEmployementHistory,
-    BaseQualification)
+    BaseQualification,
+    BaseClientName
+    )
 
 class Client_Model_1(BaseModel):
-    name:str
+    name:BaseClientName
     phonetic_character:str
     birth_date: str
     age:int

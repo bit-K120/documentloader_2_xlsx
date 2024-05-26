@@ -25,21 +25,30 @@ class WriteExcel:
     
     def insert_name(self):
         cell = "E7"
+        family_name = self.output.name.family_name
+        first_name = self.output.name.first_name
+        full_name = f"{family_name} {first_name}"
+
         cell_found = False
         for merged_range in self.merged_cells:
             if cell in merged_range:
                 top_left_cell = self.sheet.cell(row=merged_range.min_row, column=merged_range.min_col) 
-                top_left_cell.value = self.output.name 
+                top_left_cell.value = full_name
                 cell_found = True
                 break
         if not cell_found:
-            self.sheet[cell].value = self.output.name
+            self.sheet[cell].value = full_name
     
     def insert_birth_date(self):
         cell = "E10"
-        year = self.output.birth_date.split('/')[0]
-        month = self.output.birth_date.split('/')[1]
-        date = self.output.birth_date.split('/')[2]
+        if '/' in self.output.birth_date:
+            text_to_split = "/"
+        elif '-' in self.output.birth_date:
+            text_to_split = "-"
+        year = self.output.birth_date.split(text_to_split)[0]
+        month = self.output.birth_date.split(text_to_split)[1]
+        date = self.output.birth_date.split(text_to_split)[2]
+
         cell_found = False
         for merged_range in self.merged_cells:
             if cell in merged_range:
@@ -123,16 +132,17 @@ class WriteExcel:
             else:
                 cells = ["B26"]
 
+            cell_found = False
             for school_info in self.output.full_school_info:
                 for cell in cells:
                     for merged_range in self.merged_cells:
                         if cell in merged_range:
                             top_left_cell = self.sheet.cell(row=merged_range.min_row, column=merged_range.min_col)
                             top_left_cell.value = school_info.graduation_year
+                            cell_found = True
                             break
-                        else:
-                            self.sheet[cell].value = school_info.graduation_year
-                            break
+                    if not cell_found:
+                        self.sheet[cell].value = school_info.graduation_year
                         
     def insert_educational_background_month(self):
             if len(self.output.full_school_info) >= 2:
@@ -380,7 +390,10 @@ class WriteExcel:
 
 
     def save_data(self):
-        file_path_to_save = f"worksheets/{self.output.name}様.xlsx"
+        family_name = self.output.name.family_name
+        first_name = self.output.name.first_name
+        full_name = f"{family_name} {first_name}"
+        file_path_to_save = f"worksheets/{full_name}様.xlsx"
         self.wb.save(file_path_to_save)
 
     def export_to_xlsx(self):

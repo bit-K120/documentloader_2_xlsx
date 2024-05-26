@@ -1,5 +1,9 @@
 from pydantic import BaseModel, Field
 
+class BaseClientName(BaseModel):
+    family_name: str = Field(..., description="クライアントの姓")
+    first_name: str = Field(..., description="クライアントの名前")
+
 class BaseAddress(BaseModel):
     postal_code:int = Field(..., description="郵便番号")
     address:str = Field(..., description="住所")
