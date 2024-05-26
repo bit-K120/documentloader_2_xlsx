@@ -380,7 +380,7 @@ class WriteExcel:
 
 
     def save_data(self):
-        file_path_to_save = "worksheets/sample_sheet_1.xlsx"
+        file_path_to_save = f"worksheets/{self.output.name}様.xlsx"
         self.wb.save(file_path_to_save)
 
     def export_to_xlsx(self):
