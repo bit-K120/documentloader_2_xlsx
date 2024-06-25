@@ -22,6 +22,6 @@ class ChatClient:
                 {"role":"user", "content": user_message}
                 ]
             )
-
+#comment
 chat_client = ChatClient(model=GptModel.GPT_3, response_model= Client_Model_1)
 
